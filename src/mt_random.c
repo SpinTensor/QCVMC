@@ -190,14 +190,14 @@ double next_random_gaussian(rng_gaussian_t *rng_gaussian){
 // Return value:
 //    intstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
-char *get_random_state_int(rng_int_t *rng_int){
+char *get_random_state_int(rng_int_t rng_int){
    char *intstate = (char*)malloc(INT_STATELENGTH*sizeof(char));
    char *tmpchar = intstate;
 
-   sprintf(tmpchar, "I %8x %8x", rng_int->seed, rng_int->mtidx);
+   sprintf(tmpchar, "I %8x %8x", rng_int.seed, rng_int.mtidx);
    tmpchar += 19;
    for (int i=0; i<MTSTATESIZE; i++){
-      sprintf(tmpchar, "%17lx", rng_int->mtstate[i]);
+      sprintf(tmpchar, "%17lx", rng_int.mtstate[i]);
       tmpchar += 17;
    }
 
@@ -212,19 +212,19 @@ char *get_random_state_int(rng_int_t *rng_int){
 // Return value:
 //    uniformstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
-char *get_random_state_uniform(rng_uniform_t *rng_uniform){
+char *get_random_state_uniform(rng_uniform_t rng_uniform){
    char *unistate = (char*)malloc(UNIFORM_STATELENGTH*sizeof(char));
    char *tmpchar = unistate;
    void *v;
    
-   v = &rng_uniform->lower;
+   v = &(rng_uniform.lower);
    sprintf(tmpchar, "U%17lx", *((unsigned long int*)v));
    tmpchar += 18;
-   v = &rng_uniform->upper;
+   v = &(rng_uniform.upper);
    sprintf(tmpchar, "%17lx ", *((unsigned long int*)v));
    tmpchar += 17;
    
-   char *intstate = get_random_state_int(&rng_uniform->rng_int);
+   char *intstate = get_random_state_int(rng_uniform.rng_int);
 
    tmpchar++;
    strcpy(tmpchar, intstate);
@@ -242,28 +242,28 @@ char *get_random_state_uniform(rng_uniform_t *rng_uniform){
 // Return value:
 //    gaussianstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
-char *get_random_state_gaussian(rng_gaussian_t *rng_gaussian){
+char *get_random_state_gaussian(rng_gaussian_t rng_gaussian){
    char *gaussstate = (char*)malloc(GAUSS_STATELENGTH*sizeof(char));
    char *tmpchar = gaussstate;
    void *v;
 
-   v = &rng_gaussian->mean;
+   v = &(rng_gaussian.mean);
    sprintf(tmpchar, "G%17lx", *((unsigned long int*)v));
    tmpchar += 18;
-   v = &rng_gaussian->stddev;
+   v = &(rng_gaussian.stddev);
    sprintf(tmpchar, "%17lx", *((unsigned long int*)v));
    tmpchar += 17;
-   v = &rng_gaussian->z1;
+   v = &(rng_gaussian.z1);
    sprintf(tmpchar, "%17lx", *((unsigned long int*)v));
    tmpchar += 17;
-   v = &rng_gaussian->z2;
+   v = &(rng_gaussian.z2);
    sprintf(tmpchar, "%17lx", *((unsigned long int*)v));
    tmpchar += 17;
-   v = &rng_gaussian->generated;
+   v = &(rng_gaussian.generated);
    sprintf(tmpchar, "%9x ", *((unsigned int*)v));
    tmpchar += 10;
    
-   char *unistate = get_random_state_uniform(&rng_gaussian->rng_uniform);
+   char *unistate = get_random_state_uniform(rng_gaussian.rng_uniform);
 
    strcpy(tmpchar, unistate);
    free(unistate);

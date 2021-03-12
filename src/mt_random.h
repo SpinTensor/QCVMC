@@ -183,7 +183,7 @@ double next_random_gaussian(rng_gaussian_t *rng_gaussian);
 // Return value:
 //    intstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
-char *get_random_state_int(rng_int_t *rng_int);
+char *get_random_state_int(rng_int_t rng_int);
 
 /////////////////////////////////////////////////////////////////////////////
 // Description:
@@ -193,7 +193,7 @@ char *get_random_state_int(rng_int_t *rng_int);
 // Return value:
 //    uniformstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
-char *get_random_state_uniform(rng_uniform_t *rng_uniform);
+char *get_random_state_uniform(rng_uniform_t rng_uniform);
 
 /////////////////////////////////////////////////////////////////////////////
 // Description:
@@ -203,7 +203,7 @@ char *get_random_state_uniform(rng_uniform_t *rng_uniform);
 // Return value:
 //    gaussianstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
-char *get_random_state_gaussian(rng_gaussian_t *rng_gaussian);
+char *get_random_state_gaussian(rng_gaussian_t rng_gaussian);
 
 /////////////////////////////////////////////////////////////////////////////
 // Description:
