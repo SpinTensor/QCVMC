@@ -4,20 +4,11 @@
 #include <string.h>
 #include "mt_random.h"
 
-#define INT_STATELENGTH (1+2*9+312*17+1)
-#define UNIFORM_STATELENGTH (1+2*17+1+INT_STATELENGTH)
-#define GAUSS_STATELENGTH (1+4*17+9+1+(UNIFORM_STATELENGTH))
-
-#define NN (MTSTATESIZE)
-#define MM 0x000000000000009C
-#define UM 0xFFFFFFFF80000000
-#define LM 0x000000007FFFFFFF
-
-#define INV2POW53MIN1 (1.0/((double)0x001FFFFFFFFFFFFF))
-
-const long int mag[2] = {0x0000000000000000, 0xB5026F5AA96619E9} ;
-
-const double twopi = 2.0 * M_PI;
+const int int_statelength = 1+2*9+312*17+1;
+const int uniform_statelength = 1+2*17+1+int_statelength;
+const int gauss_statelength = 1+4*17+9+1+uniform_statelength;
+const int nn = MTSTATESIZE;
+const int mm = 0x0000009C;
 
 /////////////////////////////////////////////////////////////////////////////
 // Description:
@@ -31,11 +22,11 @@ rng_int_t init_random_int(int seed){
    rng_int_t rng_int;
    rng_int.seed = seed;
    rng_int.mtstate[0] = seed ;
-   for (int i=1; i<NN; i++){
+   for (int i=1; i<nn; i++){
       rng_int.mtstate[i] = 0x5851F42D4C957F2D * 
          (rng_int.mtstate[i-1]^(((unsigned long int)rng_int.mtstate[i-1])>>62)) + i;
    } 
-   rng_int.mtidx = NN+1;
+   rng_int.mtidx = nn+1;
    return rng_int;
 }
 
@@ -92,20 +83,24 @@ long int next_random_long_int(rng_int_t *rng_int){
 
    unsigned long int rng = 0;
 
+   const unsigned long int um = 0xFFFFFFFF80000000;
+   const unsigned long int lm = 0x000000007FFFFFFF;
+   const unsigned long int mag[2] = {0x0000000000000000, 0xB5026F5AA96619E9} ;
+
    // if pool of random numbers is drained create a set of new ones
-   if (rng_int->mtidx > NN-2){
-      for (int i=0; i<NN-MM; i++) {
-         rng = (rng_int->mtstate[i] & UM) ^ (rng_int->mtstate[i+1] & LM);
-         rng_int->mtstate[i] = (rng_int->mtstate[i+MM] ^ (rng>>1)) ^ (mag[(rng& 1)]) ;
+   if (rng_int->mtidx > nn-2){
+      for (int i=0; i<nn-mm; i++) {
+         rng = (rng_int->mtstate[i] & um) ^ (rng_int->mtstate[i+1] & lm);
+         rng_int->mtstate[i] = (rng_int->mtstate[i+mm] ^ (rng>>1)) ^ (mag[(rng& 1)]) ;
       }
 
-      for (int i=NN-MM; i<NN-1; i++) {
-         rng = (rng_int->mtstate[i] & UM) ^ (rng_int->mtstate[i+1] & LM);
-         rng_int->mtstate[i] = (rng_int->mtstate[i+MM-NN] ^ (rng>>1)) ^ (mag[(rng& 1)]) ;
+      for (int i=nn-mm; i<nn-1; i++) {
+         rng = (rng_int->mtstate[i] & um) ^ (rng_int->mtstate[i+1] & lm);
+         rng_int->mtstate[i] = (rng_int->mtstate[i+mm-nn] ^ (rng>>1)) ^ (mag[(rng& 1)]) ;
       }
 
-      rng = (rng_int->mtstate[NN-1] & UM) ^ (rng_int->mtstate[0] & LM);
-      rng_int->mtstate[NN-1] = (rng_int->mtstate[MM-1] ^ (rng>>1)) ^ (mag[(rng& 1)]) ;
+      rng = (rng_int->mtstate[nn-1] & um) ^ (rng_int->mtstate[0] & lm);
+      rng_int->mtstate[nn-1] = (rng_int->mtstate[mm-1] ^ (rng>>1)) ^ (mag[(rng& 1)]) ;
 
       rng_int->mtidx = -1 ;
    }
@@ -144,7 +139,7 @@ int next_random_int(rng_int_t *rng_int){
 /////////////////////////////////////////////////////////////////////////////
 double next_random_uniform(rng_uniform_t *rng_uniform){
    unsigned long int irng = next_random_long_int(&rng_uniform->rng_int);
-   double randnum = INV2POW53MIN1 * (double)(irng>>11);
+   double randnum = (1.0/((double)0x001FFFFFFFFFFFFF)) * (double)(irng>>11);
    randnum *= rng_uniform->upper - rng_uniform->lower;
    randnum += rng_uniform->lower;
    return randnum;
@@ -173,7 +168,7 @@ double next_random_gaussian(rng_gaussian_t *rng_gaussian){
    }
 
    double tmp1 = sqrt(-2.0*log(u1));
-   double tmp2 = twopi*u2;
+   double tmp2 = 2.0 * M_PI * u2;
    rng_gaussian->z1 = tmp1*cos(tmp2);
    rng_gaussian->z2 = tmp1*sin(tmp2);
    rng_gaussian->generated = true;
@@ -191,7 +186,7 @@ double next_random_gaussian(rng_gaussian_t *rng_gaussian){
 //    intstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
 char *get_random_state_int(rng_int_t rng_int){
-   char *intstate = (char*)malloc(INT_STATELENGTH*sizeof(char));
+   char *intstate = (char*)malloc(int_statelength*sizeof(char));
    char *tmpchar = intstate;
 
    sprintf(tmpchar, "I %8x %8x", rng_int.seed, rng_int.mtidx);
@@ -213,7 +208,7 @@ char *get_random_state_int(rng_int_t rng_int){
 //    uniformstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
 char *get_random_state_uniform(rng_uniform_t rng_uniform){
-   char *unistate = (char*)malloc(UNIFORM_STATELENGTH*sizeof(char));
+   char *unistate = (char*)malloc(uniform_statelength*sizeof(char));
    char *tmpchar = unistate;
    void *v;
    
@@ -243,7 +238,7 @@ char *get_random_state_uniform(rng_uniform_t rng_uniform){
 //    gaussianstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
 char *get_random_state_gaussian(rng_gaussian_t rng_gaussian){
-   char *gaussstate = (char*)malloc(GAUSS_STATELENGTH*sizeof(char));
+   char *gaussstate = (char*)malloc(gauss_statelength*sizeof(char));
    char *tmpchar = gaussstate;
    void *v;
 
