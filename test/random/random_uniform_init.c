@@ -8,12 +8,12 @@ int main(int argc, char **argv) {
    const int nseeds = 1337;
 #define NLBOUNDS 5
    int lbounds[NLBOUNDS] = {-137.0 -3.14, 0, 17.0, 42.42};
-#define NWIDTHS 3
-   int widths[NWIDTHS] = {0.1, 3.14, 1337.7331} 
+#define NUBOUNDS 3
+   int ubounds[NUBOUNDS] = {0.1, 3.14, 1337.7331};
 
    for (int iseed=1; iseed<nseeds; iseed++) {
-      rng_uniform_t rng_state1 = init_rng_uniform(iseed, lbounds[iseed%NLBOUNDS], widths[iseed%NWIDTHS]);
-      rng_uniform_t rng_state2 = init_rng_uniform(iseed, lbounds[iseed%NLBOUNDS], widths[iseed%NWIDTHS]);
+      rng_uniform_t rng_state1 = init_rng_uniform(iseed, lbounds[iseed%NLBOUNDS], ubounds[iseed%NUBOUNDS]);
+      rng_uniform_t rng_state2 = init_rng_uniform(iseed, lbounds[iseed%NLBOUNDS], ubounds[iseed%NUBOUNDS]);
 
       for (int isample=0; isample<nsamples; isample++) {
          double rng1 = next_random_uniform(&rng_state1);
