@@ -1,4 +1,4 @@
-AC_INIT([vfdviewer], [0.0.1], [felix.uhl@emea.nec.com])
+AC_INIT([QCVMC], [0.0.1], [])
 : ${CFLAGS="-O3"}
 
 # Will be generated
@@ -32,6 +32,5 @@ PKG_CHECK_MODULES([GTK], [gtk+-3.0 >= 3.0])
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([test/Makefile])
-AC_CONFIG_FILES([external/Makefile])
 
 AC_OUTPUT
