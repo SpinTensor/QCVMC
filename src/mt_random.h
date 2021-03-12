@@ -18,9 +18,9 @@
 //    Initialize the uniform random nuber state:
 //       rng_stateu = init_rng(seed, lowerbound, upperbound)
 //    Initialize the gaussian random nuber state:
-//       rng_stateg = init_rng_gaussian(seed, meanvalue, stddev)
+//       rng_stateg = init_random_gaussian(seed, meanvalue, stddev)
 //    Initialize the int/long int random number state:
-//       rng_statei = init_rng_int(seed)
+//       rng_statei = init_random_int(seed)
 //    Get the next random number:
 //       Uniform:
 //          random_number = next_random_uniform(&rng_rng_stateu) ;
@@ -39,11 +39,11 @@
 //          state_string = get_random_state_int(rng_statei)
 //    Restore a previously extracted state:
 //       Uniform:
-//          rng_stateu = get_random_state_uniform(state_string)
+//          rng_stateu = restore_random_state_uniform(state_string)
 //       Gaussian:
-//          rng_stateg = get_random_state_gaussian(state_string)
+//          rng_stateg = restore_random_state_gaussian(state_string)
 //       Int / long_int:
-//          rng_statei = get_random_state_int(state_string)
+//          rng_statei = restore_random_state_int(state_string)
 //    There is no need for freeing anything except the state string pointer
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -108,7 +108,7 @@ typedef struct {
 // Return value:
 //    rng_int: int random number state
 /////////////////////////////////////////////////////////////////////////////
-rng_int_t init_rng_int(int seed);
+rng_int_t init_random_int(int seed);
 
 /////////////////////////////////////////////////////////////////////////////
 // Description:
@@ -120,7 +120,7 @@ rng_int_t init_rng_int(int seed);
 // Return value:
 //    rng_uniform: uniform random number state
 /////////////////////////////////////////////////////////////////////////////
-rng_uniform_t init_rng_uniform(int seed, double lower, double upper);
+rng_uniform_t init_random_uniform(int seed, double lower, double upper);
 
 /////////////////////////////////////////////////////////////////////////////
 // Description:
@@ -132,7 +132,7 @@ rng_uniform_t init_rng_uniform(int seed, double lower, double upper);
 // Return value:
 //    rng_gaussian: gaussian random number state
 /////////////////////////////////////////////////////////////////////////////
-rng_gaussian_t init_rng_gaussian(int seed, double mean, double stddev);
+rng_gaussian_t init_random_gaussian(int seed, double mean, double stddev);
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -213,7 +213,7 @@ char *get_random_state_gaussian(rng_gaussian_t *rng_gaussian);
 // Return value:
 //    rng_int: Random number generator state
 /////////////////////////////////////////////////////////////////////////////
-rng_int_t restore_rng_state_int(char *rng_state);
+rng_int_t restore_random_state_int(char *rng_state);
 
 /////////////////////////////////////////////////////////////////////////////
 // Description:
@@ -223,7 +223,7 @@ rng_int_t restore_rng_state_int(char *rng_state);
 // Return value:
 //    rng_uniform: Random number generator state
 /////////////////////////////////////////////////////////////////////////////
-rng_uniform_t restore_rng_state_uniform(char *rng_state);
+rng_uniform_t restore_random_state_uniform(char *rng_state);
 
 /////////////////////////////////////////////////////////////////////////////
 // Description:
@@ -233,6 +233,6 @@ rng_uniform_t restore_rng_state_uniform(char *rng_state);
 // Return value:
 //    rng_gaussian: Random number generator state
 /////////////////////////////////////////////////////////////////////////////
-rng_gaussian_t restore_rng_state_gaussian(char *rng_state);
+rng_gaussian_t restore_random_state_gaussian(char *rng_state);
 
 #endif

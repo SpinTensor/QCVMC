@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
    const int seed = 1337;
 
    // initialize random number generator
-   rng_gaussian_t rng_state = init_rng_gaussian(seed, 137.0, 42.0);
+   rng_gaussian_t rng_state = init_random_gaussian(seed, 137.0, 42.0);
 
    double ref_samples[NSAMPLES] = {
       1.365757930218428839453e+02,

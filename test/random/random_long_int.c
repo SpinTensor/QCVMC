@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
    const int seed = 1337;
 
    // initialize random number generator
-   rng_int_t rng_state = init_rng_int(seed);
+   rng_int_t rng_state = init_random_int(seed);
 
    long int ref_samples[NSAMPLES] = {
       -9021340796058515322,

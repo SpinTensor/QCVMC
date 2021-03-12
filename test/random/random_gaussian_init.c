@@ -15,8 +15,8 @@ int main(int argc, char **argv) {
    int stddevs[NSTDDEVS] = {0.1, 3.14, 1337.7331};
 
    for (int iseed=1; iseed<nseeds; iseed++) {
-      rng_gaussian_t rng_state1 = init_rng_gaussian(iseed, means[iseed%NMEANS], stddevs[iseed%NSTDDEVS]);
-      rng_gaussian_t rng_state2 = init_rng_gaussian(iseed, means[iseed%NMEANS], stddevs[iseed%NSTDDEVS]);
+      rng_gaussian_t rng_state1 = init_random_gaussian(iseed, means[iseed%NMEANS], stddevs[iseed%NSTDDEVS]);
+      rng_gaussian_t rng_state2 = init_random_gaussian(iseed, means[iseed%NMEANS], stddevs[iseed%NSTDDEVS]);
 
       for (int isample=0; isample<nsamples; isample++) {
          double rng1 = next_random_gaussian(&rng_state1);

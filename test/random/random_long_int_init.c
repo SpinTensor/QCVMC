@@ -8,8 +8,8 @@ int main(int argc, char **argv) {
    const int nseeds = 1337;
 
    for (int iseed=1; iseed<nseeds; iseed++) {
-      rng_int_t rng_state1 = init_rng_int(iseed);
-      rng_int_t rng_state2 = init_rng_int(iseed);
+      rng_int_t rng_state1 = init_random_int(iseed);
+      rng_int_t rng_state2 = init_random_int(iseed);
 
       for (int isample=0; isample<nsamples; isample++) {
          long int rng1 = next_random_long_int(&rng_state1);

@@ -27,7 +27,7 @@ const double twopi = 2.0 * M_PI;
 // Return value:
 //    rng_int: int random number state
 /////////////////////////////////////////////////////////////////////////////
-rng_int_t init_rng_int(int seed){
+rng_int_t init_random_int(int seed){
    rng_int_t rng_int;
    rng_int.seed = seed;
    rng_int.mtstate[0] = seed ;
@@ -49,10 +49,10 @@ rng_int_t init_rng_int(int seed){
 // Return value:
 //    rng_uniform: uniform random number state
 /////////////////////////////////////////////////////////////////////////////
-rng_uniform_t init_rng_uniform(int seed, double lower, double upper){
+rng_uniform_t init_random_uniform(int seed, double lower, double upper){
    rng_uniform_t rng_uniform;
 
-   rng_uniform.rng_int = init_rng_int(seed);
+   rng_uniform.rng_int = init_random_int(seed);
    rng_uniform.lower = lower;
    rng_uniform.upper = upper;
    return rng_uniform;
@@ -68,10 +68,10 @@ rng_uniform_t init_rng_uniform(int seed, double lower, double upper){
 // Return value:
 //    rng_gaussian: gaussian random number state
 /////////////////////////////////////////////////////////////////////////////
-rng_gaussian_t init_rng_gaussian(int seed, double mean, double stddev){
+rng_gaussian_t init_random_gaussian(int seed, double mean, double stddev){
    rng_gaussian_t rng_gaussian;
 
-   rng_gaussian.rng_uniform = init_rng_uniform(seed, 0.0, 1.0);
+   rng_gaussian.rng_uniform = init_random_uniform(seed, 0.0, 1.0);
    rng_gaussian.mean = mean;
    rng_gaussian.stddev = stddev;
    rng_gaussian.z1 = 0.0;
@@ -280,7 +280,7 @@ char *get_random_state_gaussian(rng_gaussian_t *rng_gaussian){
 // Return value:
 //    rng_int: Random number generator state
 /////////////////////////////////////////////////////////////////////////////
-rng_int_t restore_rng_state_int(char *intstate){
+rng_int_t restore_random_state_int(char *intstate){
    rng_int_t rng_int;
    char rngt;
 
@@ -310,7 +310,7 @@ rng_int_t restore_rng_state_int(char *intstate){
 // Return value:
 //    rng_uniform: Random number generator state
 /////////////////////////////////////////////////////////////////////////////
-rng_uniform_t restore_rng_state_uniform(char *uniformstate){
+rng_uniform_t restore_random_state_uniform(char *uniformstate){
    rng_uniform_t rng_uniform;
    char rngt;
    
@@ -330,7 +330,7 @@ rng_uniform_t restore_rng_state_uniform(char *uniformstate){
    uniformstate += 17;
 
    uniformstate++;
-   rng_uniform.rng_int = restore_rng_state_int(uniformstate);
+   rng_uniform.rng_int = restore_random_state_int(uniformstate);
    
    return rng_uniform;
 }
@@ -343,7 +343,7 @@ rng_uniform_t restore_rng_state_uniform(char *uniformstate){
 // Return value:
 //    rng_gaussian: Random number generator state
 /////////////////////////////////////////////////////////////////////////////
-rng_gaussian_t restore_rng_state_gaussian(char *gaussianstate){
+rng_gaussian_t restore_random_state_gaussian(char *gaussianstate){
    rng_gaussian_t rng_gaussian;
    char rngt;
 
@@ -373,7 +373,7 @@ rng_gaussian_t restore_rng_state_gaussian(char *gaussianstate){
    gaussianstate += 9;
 
    gaussianstate++;
-   rng_gaussian.rng_uniform = restore_rng_state_uniform(gaussianstate);
+   rng_gaussian.rng_uniform = restore_random_state_uniform(gaussianstate);
    
    return rng_gaussian;
 }

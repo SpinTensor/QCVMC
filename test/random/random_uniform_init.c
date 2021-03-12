@@ -15,8 +15,8 @@ int main(int argc, char **argv) {
    int ubounds[NUBOUNDS] = {0.1, 3.14, 1337.7331};
 
    for (int iseed=1; iseed<nseeds; iseed++) {
-      rng_uniform_t rng_state1 = init_rng_uniform(iseed, lbounds[iseed%NLBOUNDS], ubounds[iseed%NUBOUNDS]);
-      rng_uniform_t rng_state2 = init_rng_uniform(iseed, lbounds[iseed%NLBOUNDS], ubounds[iseed%NUBOUNDS]);
+      rng_uniform_t rng_state1 = init_random_uniform(iseed, lbounds[iseed%NLBOUNDS], ubounds[iseed%NUBOUNDS]);
+      rng_uniform_t rng_state2 = init_random_uniform(iseed, lbounds[iseed%NLBOUNDS], ubounds[iseed%NUBOUNDS]);
 
       for (int isample=0; isample<nsamples; isample++) {
          double rng1 = next_random_uniform(&rng_state1);

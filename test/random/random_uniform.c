@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
    const int seed = 1337;
 
    // initialize random number generator
-   rng_uniform_t rng_state = init_rng_uniform(seed, 42.0, 137.0);
+   rng_uniform_t rng_state = init_random_uniform(seed, 42.0, 137.0);
 
    double ref_samples[NSAMPLES] = {
       9.054045287336093394970e+01,
