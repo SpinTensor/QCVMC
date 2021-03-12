@@ -26,9 +26,6 @@ AM_COND_IF(
    [AX_APPEND_FLAG([-g])
     AX_APPEND_FLAG([-D_DEBUG])])
 
-# check for gtk
-PKG_CHECK_MODULES([GTK], [gtk+-3.0 >= 3.0])
-
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([test/Makefile])
