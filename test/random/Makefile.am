@@ -40,11 +40,6 @@ check_PROGRAMS += random_int \
 		  random_uniform \
 		  random_gaussian
 
-check_PROGRAMS += random_int \
-		  random_long_int \
-		  random_uniform \
-		  random_gaussian
-
 random_int_SOURCES = $(srcdir)/random_int.c
 random_int_CFLAGS  = $(AM_CFLAGS)
 random_int_LDFLAGS = $(AM_LDFLAGS)
@@ -65,6 +60,35 @@ dist_noinst_SCRIPTS += random_int.sh \
 		       random_long_int.sh \
 		       random_uniform.sh \
 		       random_gaussian.sh
+
+###############
+# RNG Restart #
+###############
+check_PROGRAMS += random_int_restart \
+		  random_long_int_restart \
+		  random_uniform_restart \
+		  random_gaussian_restart
+
+random_int_restart_SOURCES = $(srcdir)/random_int_restart.c
+random_int_restart_CFLAGS  = $(AM_CFLAGS)
+random_int_restart_LDFLAGS = $(AM_LDFLAGS)
+
+random_long_int_restart_SOURCES = $(srcdir)/random_long_int_restart.c
+random_long_int_restart_CFLAGS  = $(AM_CFLAGS)
+random_long_int_restart_LDFLAGS = $(AM_LDFLAGS)
+
+random_uniform_restart_SOURCES = $(srcdir)/random_uniform_restart.c
+random_uniform_restart_CFLAGS  = $(AM_CFLAGS)
+random_uniform_restart_LDFLAGS = $(AM_LDFLAGS)
+
+random_gaussian_restart_SOURCES = $(srcdir)/random_gaussian_restart.c
+random_gaussian_restart_CFLAGS  = $(AM_CFLAGS)
+random_gaussian_restart_LDFLAGS = $(AM_LDFLAGS)
+
+dist_noinst_SCRIPTS += random_int_restart.sh \
+		       random_long_int_restart.sh \
+		       random_uniform_restart.sh \
+		       random_gaussian_restart.sh
 
 TEST_EXTENSIONS = .sh
 SH_LOG_COMPILER = $(SHELL)
