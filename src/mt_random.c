@@ -18,11 +18,11 @@ const int mm = 0x0000009C;
 // Return value:
 //    rng_int: int random number state
 /////////////////////////////////////////////////////////////////////////////
-rng_int_t init_random_int(int seed){
+rng_int_t init_random_int(int seed) {
    rng_int_t rng_int;
    rng_int.seed = seed;
    rng_int.mtstate[0] = seed ;
-   for (int i=1; i<nn; i++){
+   for (int i=1; i<nn; i++) {
       rng_int.mtstate[i] = 0x5851F42D4C957F2D * 
          (rng_int.mtstate[i-1]^(((unsigned long int)rng_int.mtstate[i-1])>>62)) + i;
    } 
@@ -40,7 +40,7 @@ rng_int_t init_random_int(int seed){
 // Return value:
 //    rng_uniform: uniform random number state
 /////////////////////////////////////////////////////////////////////////////
-rng_uniform_t init_random_uniform(int seed, double lower, double upper){
+rng_uniform_t init_random_uniform(int seed, double lower, double upper) {
    rng_uniform_t rng_uniform;
 
    rng_uniform.rng_int = init_random_int(seed);
@@ -59,7 +59,7 @@ rng_uniform_t init_random_uniform(int seed, double lower, double upper){
 // Return value:
 //    rng_gaussian: gaussian random number state
 /////////////////////////////////////////////////////////////////////////////
-rng_gaussian_t init_random_gaussian(int seed, double mean, double stddev){
+rng_gaussian_t init_random_gaussian(int seed, double mean, double stddev) {
    rng_gaussian_t rng_gaussian;
 
    rng_gaussian.rng_uniform = init_random_uniform(seed, 0.0, 1.0);
@@ -79,7 +79,7 @@ rng_gaussian_t init_random_gaussian(int seed, double mean, double stddev){
 // Return value:
 //    randnum: next random number
 /////////////////////////////////////////////////////////////////////////////
-long int next_random_long_int(rng_int_t *rng_int){
+long int next_random_long_int(rng_int_t *rng_int) {
 
    unsigned long int rng = 0;
 
@@ -88,7 +88,7 @@ long int next_random_long_int(rng_int_t *rng_int){
    const unsigned long int mag[2] = {0x0000000000000000, 0xB5026F5AA96619E9} ;
 
    // if pool of random numbers is drained create a set of new ones
-   if (rng_int->mtidx > nn-2){
+   if (rng_int->mtidx > nn-2) {
       for (int i=0; i<nn-mm; i++) {
          rng = (rng_int->mtstate[i] & um) ^ (rng_int->mtstate[i+1] & lm);
          rng_int->mtstate[i] = (rng_int->mtstate[i+mm] ^ (rng>>1)) ^ (mag[(rng& 1)]) ;
@@ -125,7 +125,7 @@ long int next_random_long_int(rng_int_t *rng_int){
 // Return value:
 //    randnum: next random number
 /////////////////////////////////////////////////////////////////////////////
-int next_random_int(rng_int_t *rng_int){
+int next_random_int(rng_int_t *rng_int) {
    return (int) ((unsigned long int)next_random_long_int(rng_int)>>32);
 }
 
@@ -137,7 +137,7 @@ int next_random_int(rng_int_t *rng_int){
 // Return value:
 //    randnum: next random number
 /////////////////////////////////////////////////////////////////////////////
-double next_random_uniform(rng_uniform_t *rng_uniform){
+double next_random_uniform(rng_uniform_t *rng_uniform) {
    unsigned long int irng = next_random_long_int(&rng_uniform->rng_int);
    double randnum = (1.0/((double)0x001FFFFFFFFFFFFF)) * (double)(irng>>11);
    randnum *= rng_uniform->upper - rng_uniform->lower;
@@ -153,7 +153,7 @@ double next_random_uniform(rng_uniform_t *rng_uniform){
 // Return value:
 //    randnum: next random number
 /////////////////////////////////////////////////////////////////////////////
-double next_random_gaussian(rng_gaussian_t *rng_gaussian){
+double next_random_gaussian(rng_gaussian_t *rng_gaussian) {
 
    if (rng_gaussian->generated) {
       rng_gaussian->generated = false;
@@ -162,7 +162,7 @@ double next_random_gaussian(rng_gaussian_t *rng_gaussian){
 
    double u1=next_random_uniform(&rng_gaussian->rng_uniform);
    double u2=next_random_uniform(&rng_gaussian->rng_uniform);
-   while (u1 <= __DBL_EPSILON__){
+   while (u1 <= __DBL_EPSILON__) {
       u1 = next_random_uniform(&rng_gaussian->rng_uniform);
       u2 = next_random_uniform(&rng_gaussian->rng_uniform);
    }
@@ -185,13 +185,13 @@ double next_random_gaussian(rng_gaussian_t *rng_gaussian){
 // Return value:
 //    intstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
-char *get_random_state_int(rng_int_t rng_int){
+char *get_random_state_int(rng_int_t rng_int) {
    char *intstate = (char*)malloc(int_statelength*sizeof(char));
    char *tmpchar = intstate;
 
    sprintf(tmpchar, "I %8x %8x", rng_int.seed, rng_int.mtidx);
    tmpchar += 19;
-   for (int i=0; i<MTSTATESIZE; i++){
+   for (int i=0; i<MTSTATESIZE; i++) {
       sprintf(tmpchar, "%17lx", rng_int.mtstate[i]);
       tmpchar += 17;
    }
@@ -207,7 +207,7 @@ char *get_random_state_int(rng_int_t rng_int){
 // Return value:
 //    uniformstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
-char *get_random_state_uniform(rng_uniform_t rng_uniform){
+char *get_random_state_uniform(rng_uniform_t rng_uniform) {
    char *unistate = (char*)malloc(uniform_statelength*sizeof(char));
    char *tmpchar = unistate;
    void *v;
@@ -237,7 +237,7 @@ char *get_random_state_uniform(rng_uniform_t rng_uniform){
 // Return value:
 //    gaussianstate: that contains all the state information
 /////////////////////////////////////////////////////////////////////////////
-char *get_random_state_gaussian(rng_gaussian_t rng_gaussian){
+char *get_random_state_gaussian(rng_gaussian_t rng_gaussian) {
    char *gaussstate = (char*)malloc(gauss_statelength*sizeof(char));
    char *tmpchar = gaussstate;
    void *v;
@@ -275,12 +275,12 @@ char *get_random_state_gaussian(rng_gaussian_t rng_gaussian){
 // Return value:
 //    rng_int: Random number generator state
 /////////////////////////////////////////////////////////////////////////////
-rng_int_t restore_random_state_int(char *intstate){
+rng_int_t restore_random_state_int(char *intstate) {
    rng_int_t rng_int;
    char rngt;
 
    sscanf(intstate, "%c", &rngt);
-   if (rngt != 'I'){
+   if (rngt != 'I') {
       fprintf(stderr, "Error in restoring int random number generator.");
       abort();
    }
@@ -289,7 +289,7 @@ rng_int_t restore_random_state_int(char *intstate){
    sscanf(intstate, " %8x %8x", (unsigned int*) &rng_int.seed, (unsigned int*) &rng_int.mtidx);
    intstate += 18;
 
-   for (int i = 0; i<MTSTATESIZE; i++){
+   for (int i = 0; i<MTSTATESIZE; i++) {
       sscanf(intstate, "%17lx", (unsigned long*) &rng_int.mtstate[i]);
       intstate += 17;
    } 
@@ -305,12 +305,12 @@ rng_int_t restore_random_state_int(char *intstate){
 // Return value:
 //    rng_uniform: Random number generator state
 /////////////////////////////////////////////////////////////////////////////
-rng_uniform_t restore_random_state_uniform(char *uniformstate){
+rng_uniform_t restore_random_state_uniform(char *uniformstate) {
    rng_uniform_t rng_uniform;
    char rngt;
    
    sscanf(uniformstate, "%c", &rngt);
-   if (rngt != 'U'){
+   if (rngt != 'U') {
       fprintf(stderr, "Error in restoring uniform random number generator.");
       abort();
    }
@@ -338,12 +338,12 @@ rng_uniform_t restore_random_state_uniform(char *uniformstate){
 // Return value:
 //    rng_gaussian: Random number generator state
 /////////////////////////////////////////////////////////////////////////////
-rng_gaussian_t restore_random_state_gaussian(char *gaussianstate){
+rng_gaussian_t restore_random_state_gaussian(char *gaussianstate) {
    rng_gaussian_t rng_gaussian;
    char rngt;
 
    sscanf(gaussianstate, "%c", &rngt);
-   if (rngt != 'G'){
+   if (rngt != 'G') {
       fprintf(stderr, "Error in restoring gaussian random number generator.");
       abort();
    }
