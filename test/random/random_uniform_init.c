@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <math.h>
+#include <float.h>
+
 #include <mt_random.h>
 
 int main(int argc, char **argv) {
@@ -17,16 +20,14 @@ int main(int argc, char **argv) {
 
       for (int isample=0; isample<nsamples; isample++) {
          double rng1 = next_random_uniform(&rng_state1);
-         void *vprng1 = (void*) &rng1;
-         unsigned long lrng1 = (unsigned long) (*vprng1);
          double rng2 = next_random_uniform(&rng_state2);
-         void *vprng2 = (void*) &rng2;
-         unsigned long lrng2 = (unsigned long) (*vprng2);
-         if (lrng1 != lrng2) {
+         if (fabs(rng1 - rng2) > 1.0e-16) {
             printf("Seed %d:\n",
                    iseed);
-            printf("   Sample %d: %le != %le\n",
-                   isample, rng1, rng2);
+            printf("   Sample %d: %.*le != %.*le\n",
+                   isample,
+                   DECIMAL_DIG, rng1,
+                   DECIMAL_DIG, rng2);
             return EXIT_FAILURE;
          }
       }

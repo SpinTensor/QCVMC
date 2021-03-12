@@ -19,11 +19,11 @@ random_long_int_init_SOURCES = $(srcdir)/random_long_int_init.c
 random_long_int_init_CFLAGS  = $(AM_CFLAGS)
 random_long_int_init_LDFLAGS = $(AM_LDFLAGS)
 
-random_uniform_init_SOURCES = $(srcdir)/random_long_int_init.c
+random_uniform_init_SOURCES = $(srcdir)/random_uniform_init.c
 random_uniform_init_CFLAGS  = $(AM_CFLAGS)
 random_uniform_init_LDFLAGS = $(AM_LDFLAGS)
 
-random_gaussian_init_SOURCES = $(srcdir)/random_long_int_init.c
+random_gaussian_init_SOURCES = $(srcdir)/random_gaussian_init.c
 random_gaussian_init_CFLAGS  = $(AM_CFLAGS)
 random_gaussian_init_LDFLAGS = $(AM_LDFLAGS)
 
