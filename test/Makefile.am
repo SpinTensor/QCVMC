@@ -1,1 +1,2 @@
-SUBDIRS = random 
+SUBDIRS = random \
+	  basefunctions
