@@ -1,2 +1,3 @@
 SUBDIRS = random \
-	  basefunctions
+	  laguerre_polynomials \
+	  spherical_harmonics

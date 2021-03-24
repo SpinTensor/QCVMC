@@ -30,6 +30,7 @@ AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([test/Makefile])
 AC_CONFIG_FILES([test/random/Makefile])
-AC_CONFIG_FILES([test/basefunctions/Makefile])
+AC_CONFIG_FILES([test/laguerre_polynomials/Makefile])
+AC_CONFIG_FILES([test/spherical_harmonics/Makefile])
 
 AC_OUTPUT

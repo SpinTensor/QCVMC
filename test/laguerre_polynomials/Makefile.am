@@ -1,11 +1,8 @@
 AM_CFLAGS = -I$(top_srcdir)/src/
-AM_LDFLAGS = -L$(top_builddir)/src/ -lbasefunctions -lm
+AM_LDFLAGS = -L$(top_builddir)/src/ -llaguerre -lm
 check_PROGRAMS = 
 dist_noinst_SCRIPTS =
 
-###################################
-# Associated Laguerre Polynomials #
-###################################
 check_PROGRAMS += laguerre
 		
 laguerre_SOURCES = $(srcdir)/laguerre.c
