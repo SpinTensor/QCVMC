@@ -1,4 +1,4 @@
-double AssociatedLaguerre(int n, double alpha, double x){
+double referenceAssociatedLaguerre(int n, double alpha, double x) {
    // calculating generalized Laguerre Polynomial of grade n via clenshaw recurrence
    // only the first prefactor is 1.0 the other ones are 0.0
    // Calculates f(x) = sum_{n=0}^{nmax} c(n) * L(n,x)
@@ -11,7 +11,7 @@ double AssociatedLaguerre(int n, double alpha, double x){
    // f(x) = sum_{n=0}^{nmax} c(n) * L(n,x)
    // can be calculated using a Clenshaw recursion
    // (c(n) are the coefficients for the Legendre polynomial expansion)
-   // 
+   //  
    // f(x) = beta(1,x)*L(0,x)*y(2) + L(1,x)*y(1) + L(0,x)*c(0)
    // beta(1,x) = -(1+a)/2
    // y(n) is calculated in the following way:

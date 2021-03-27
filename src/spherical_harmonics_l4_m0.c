@@ -5,7 +5,6 @@ double spherical_harmonics_l4_m0(double x, double y, double z){
    double z_pow4 = z_pow2 * z_pow2;
 
    double r_pow2 = x*x + y*y + z_pow2;
-   double r = sqrt(r_pow2);
    double r_pow4 = r_pow2 * r_pow2;
 
    double PIlmz = 0.0;

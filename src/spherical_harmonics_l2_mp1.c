@@ -2,7 +2,6 @@
 
 double spherical_harmonics_l2_mp1(double x, double y, double z){
    double r_pow2 = x*x + y*y + z*z;
-   double r = sqrt(r_pow2);
 
    double PIlmz = 0.0;
    PIlmz += 3.000000000000000000000e+00 * z;

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-binary=laguerre
+binary=associated_laguerre_n0
 
 ./${binary} || exit 1

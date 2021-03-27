@@ -1,5 +1,5 @@
 noinst_LTLIBRARIES = libmtrandom.la \
-		     liblaguerre.la \
+		     libassociated_laguerre.la \
 		     libspherical_harmonics.la
 
 bin_PROGRAMS = qcvmc
@@ -9,7 +9,7 @@ qcvmc_CPPFLAGS =
 qcvmc_CFLAGS = -g -Wall -Wextra -Wpedantic
 qcvmc_LDFLAGS = -lm
 qcvmc_LDADD = libmtrandom.la \
-	      liblaguerre.la \
+	      libassociated_laguerre.la \
 	      libspherical_harmonics.la
 
 ###########################
@@ -19,12 +19,14 @@ libmtrandom_la_SOURCES = mt_random.c
 libmtrandom_la_CFLAGS = -g -Wall -Wextra -Wpedantic
 libmtrandom_la_LDFLAGS = -lm
 
-######################
-# Laguerre Functions #
-######################
-liblaguerre_la_SOURCES = laguerre.c
-liblaguerre_la_CFLAGS = -g -Wall -Wextra -Wpedantic
-liblaguerre_la_LDFLAGS =
+#################################
+# Associated Laguerre Functions #
+#################################
+libassociated_laguerre_la_SOURCES = associated_laguerre_n0.c \
+			 associated_laguerre_n1.c \
+			 associated_laguerre_n2.c
+libassociated_laguerre_la_CFLAGS = -g -Wall -Wextra -Wpedantic
+libassociated_laguerre_la_LDFLAGS =
 
 #######################
 # Spherical Harmonics #
