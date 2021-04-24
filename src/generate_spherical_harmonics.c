@@ -425,17 +425,17 @@ void write_source_file(long int l, long int m, char *filenamebase) {
    if (m > 0) {
       fprintf(sourcefile,
               "   double Amxy = 0.0;\n");
-      for (long int p=0; p<=m; p++) {
-         if (Amxy_prefactor(m, p) != 0) {
+      for (long int p=0; p<=absm; p++) {
+         if (Amxy_prefactor(absm, p) != 0) {
             // binomial prefactor
             mpq_t binomial_coeff_mpq;
             mpq_init(binomial_coeff_mpq);
-            binomial_coefficient(m, p, binomial_coeff_mpq);
+            binomial_coefficient(absm, p, binomial_coeff_mpq);
             double binomial_coeff_d = mpq_get_d(binomial_coeff_mpq);
             mpq_clear(binomial_coeff_mpq);
    
             fprintf(sourcefile,
-                    "   Amxy %s ", Amxy_prefactor(m, p) > 0 ? "+=" : "-=");
+                    "   Amxy %s ", Amxy_prefactor(absm, p) > 0 ? "+=" : "-=");
             fprintf(sourcefile,
                     "%.*le",DECIMAL_DIG, binomial_coeff_d);
             if (p == 1) {
@@ -450,7 +450,7 @@ void write_source_file(long int l, long int m, char *filenamebase) {
                        " * y");
             } else if (m-p > 1) {
                fprintf(sourcefile,
-                       " * y_pow%ld", m-p);
+                       " * y_pow%ld", absm-p);
             }
             fprintf(sourcefile, ";\n");
          }
@@ -539,7 +539,7 @@ void write_source_file(long int l, long int m, char *filenamebase) {
 
 
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv) {7
 
    cmd_options_t options = parse_command_line_options(argc, argv);
    // sanity check for l
