@@ -1,7 +1,5 @@
 noinst_LTLIBRARIES = libmtrandom.la \
 		     libmp_consts.la \
-		     libassociated_laguerre.la \
-		     libspherical_harmonics.la
 
 bin_PROGRAMS = qcvmc
 
