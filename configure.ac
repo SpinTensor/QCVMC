@@ -30,5 +30,6 @@ AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([test/Makefile])
 AC_CONFIG_FILES([test/random/Makefile])
+AC_CONFIG_FILES([test/HWFbasis/Makefile])
 
 AC_OUTPUT
