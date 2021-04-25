@@ -44,6 +44,10 @@ mp_consts.c: $(srcdir)/generate_mp_consts
 ################################
 # Hydrogen Eigenfunction Basis #
 ################################
-libHWFbasis_la_SOURCES = HWF_n1_l0_m0.c
+libHWFbasis_la_SOURCES = HWF_n1_l0_m0.c \
+			 HWF_n2_l0_m0.c \
+			 HWF_n2_l1_mm1.c \
+			 HWF_n2_l1_m0.c \
+			 HWF_n2_l1_mp1.c
 libHWFbasis_la_CFLAGS = -g -Wall -Wextra -Wpedantic
 libHWFbasis_la_LDFLAGS =
